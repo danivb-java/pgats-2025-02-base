@@ -1,0 +1,25 @@
+[
+    {
+        "nomeDoTeste": "Email já cadastrado",
+        "createCheckout": {
+            "query": "mutation Register($name: String!, $email: String!, $password: String!) {register(name: $name, email: $email, password: $password) {name email }}",
+            "variables": {
+                "name": "Alice",
+                "email": "alice@email.com",
+                "password": "123456"
+            }
+        },
+        "mensagemEsperada": "Email já cadastrado"
+    },
+    {
+        "nomeDoTeste": "Credenciais inválidas",
+        "createCheckout": {
+            "query": "mutation Login($email: String!, $password: String!) {login(email: $email, password: $password) {token}}",
+            "variables": {
+                "email": "rafael@email.com",
+                "password": "123456"
+            }
+        },
+        "mensagemEsperada": "Credenciais inválidas"
+    }
+]

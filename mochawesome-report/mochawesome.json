@@ -1,0 +1,253 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-09-18T15:42:11.979Z",
+    "end": "2025-09-18T15:42:12.371Z",
+    "duration": 392,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7454c665-8591-4497-a27b-3af247a06208",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+          "title": "Testes API GRAPHQL de Checkout e Pagamento de produtos",
+          "fullFile": "C:\\DANI\\Pos_AutomacaoTestes\\7-AutomacaoTestesAPI\\ProvaFinal\\pgats-2025-02-base\\test\\graphql\\external\\checkoutExternal.test.js",
+          "file": "\\test\\graphql\\external\\checkoutExternal.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Testes API GRAPHQL de Checkout e Pagamento de produtos\"",
+              "fullTitle": "Testes API GRAPHQL de Checkout e Pagamento de produtos \"before all\" hook in \"Testes API GRAPHQL de Checkout e Pagamento de produtos\"",
+              "timedOut": false,
+              "duration": 182,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const loginUser = require('../fixture/requisicoes/login/loginUser.json');\nconst resposta = await request('http://localhost:4000')\n    .post('/graphql')\n    .send(loginUser);\ntoken = resposta.body.data.login.token;",
+              "err": {},
+              "uuid": "f0be8522-b4dd-4b20-b8ff-53430032fad1",
+              "parentUUID": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Validar sucesso de pagamento com boleto",
+              "fullTitle": "Testes API GRAPHQL de Checkout e Pagamento de produtos Validar sucesso de pagamento com boleto",
+              "timedOut": false,
+              "duration": 30,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const reqBoleto = require('../fixture/requisicoes/checkout/createPagtoWithBoleto.json');\nconst respostaSucessoBoleto = await request('http://localhost:4000')\n    .post('/graphql')\n    .set('Authorization', `Bearer ${token}`)\n    .send(reqBoleto);\nexpect(respostaSucessoBoleto.status).to.equal(200);\nexpect(respostaSucessoBoleto.body).to.have.property('data');\nexpect(respostaSucessoBoleto.body.data.checkout).to.include({ paymentMethod: 'boleto' });",
+              "err": {},
+              "uuid": "c0524842-9aae-42c2-b27a-aeed85e2d7e0",
+              "parentUUID": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Validar sucesso de pagamento com cartão",
+              "fullTitle": "Testes API GRAPHQL de Checkout e Pagamento de produtos Validar sucesso de pagamento com cartão",
+              "timedOut": false,
+              "duration": 21,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const reqCartao = require('../fixture/requisicoes/checkout/createPagtoWithCartao.json');\nconst respostaSucessoCartao = await request('http://localhost:4000')\n    .post('/graphql')\n    .set('Authorization', `Bearer ${token}`)\n    .send(reqCartao);\nexpect(respostaSucessoCartao.status).to.equal(200);\nexpect(respostaSucessoCartao.body).to.have.property('data');\nexpect(respostaSucessoCartao.body.data.checkout).to.include({ paymentMethod: 'credit_card' });\nconst respostaEsperada = require('../fixture/respostas/pagamentos/validarPagamentoComCartao.json');\nexpect(respostaSucessoCartao.body.data.checkout).to.deep.equal(respostaEsperada.data.checkout);",
+              "err": {},
+              "uuid": "037a61e7-2c9f-4756-8d7b-31ce8e260e37",
+              "parentUUID": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Testando a regra relacionada a Email já cadastrado",
+              "fullTitle": "Testes API GRAPHQL de Checkout e Pagamento de produtos Testando a regra relacionada a Email já cadastrado",
+              "timedOut": false,
+              "duration": 21,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const respostaCheckout = await request('http://localhost:4000')\n    .post('/graphql')\n    .set('Authorization', `Bearer ${token}`)\n    .send(teste.createCheckout);\nexpect(respostaCheckout.status).to.equal(200);\nexpect(respostaCheckout.body.errors[0].message).to.equal(teste.mensagemEsperada);",
+              "err": {},
+              "uuid": "61c65a1b-9ca9-4625-895b-c8a7c3966320",
+              "parentUUID": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Testando a regra relacionada a Credenciais inválidas",
+              "fullTitle": "Testes API GRAPHQL de Checkout e Pagamento de produtos Testando a regra relacionada a Credenciais inválidas",
+              "timedOut": false,
+              "duration": 18,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const respostaCheckout = await request('http://localhost:4000')\n    .post('/graphql')\n    .set('Authorization', `Bearer ${token}`)\n    .send(teste.createCheckout);\nexpect(respostaCheckout.status).to.equal(200);\nexpect(respostaCheckout.body.errors[0].message).to.equal(teste.mensagemEsperada);",
+              "err": {},
+              "uuid": "61b51ef2-a9ac-4459-85dd-f7acf220ba31",
+              "parentUUID": "635f3f60-1f19-4fe9-8bdd-42a8a7e49a44",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c0524842-9aae-42c2-b27a-aeed85e2d7e0",
+            "037a61e7-2c9f-4756-8d7b-31ce8e260e37",
+            "61c65a1b-9ca9-4625-895b-c8a7c3966320",
+            "61b51ef2-a9ac-4459-85dd-f7acf220ba31"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 90,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        },
+        {
+          "uuid": "a8ad588e-7185-4c65-90b5-485b706c11a3",
+          "title": "Testes API REST de Checkout e Pagamento de produtos",
+          "fullFile": "C:\\DANI\\Pos_AutomacaoTestes\\7-AutomacaoTestesAPI\\ProvaFinal\\pgats-2025-02-base\\test\\rest\\external\\checkoutExternal.test.js",
+          "file": "\\test\\rest\\external\\checkoutExternal.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Testes API REST de Checkout e Pagamento de produtos\"",
+              "fullTitle": "Testes API REST de Checkout e Pagamento de produtos \"before all\" hook in \"Testes API REST de Checkout e Pagamento de produtos\"",
+              "timedOut": false,
+              "duration": 13,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const postLogin = require('../fixture/requisicoes/login/postLogin.json');\nconst respostaLogin = await request('http://localhost:3000')\n    .post('/api/users/login')\n    .send(postLogin);\nexpect(respostaLogin.status).to.equal(200);\nexpect(respostaLogin.body.token).to.be.a('string');\ntoken = respostaLogin.body.token;",
+              "err": {},
+              "uuid": "81eaf6a4-04cc-407b-96a9-7aa870ff2109",
+              "parentUUID": "a8ad588e-7185-4c65-90b5-485b706c11a3",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Validar pagamento com boleto",
+              "fullTitle": "Testes API REST de Checkout e Pagamento de produtos Validar pagamento com boleto",
+              "timedOut": false,
+              "duration": 22,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const postPagtoWithBoleto = require('../fixture/requisicoes/checkout/postPagtoWithBoleto.json');\nconst resposta = await request('http://localhost:3000')\n    .post('/api/checkout')\n    .set('Authorization', `Bearer ${token}`)\n    .send(postPagtoWithBoleto);\nexpect(resposta.status).to.equal(200);\nconst respostaEsperada = require('../fixture/respostas/valoresValidosSucessoBoleto.json');\nexpect(resposta.body).to.deep.equal(respostaEsperada);",
+              "err": {},
+              "uuid": "a3e27482-cbdf-42a3-a568-e6e6c61c9fac",
+              "parentUUID": "a8ad588e-7185-4c65-90b5-485b706c11a3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Validar pagamento com cartao",
+              "fullTitle": "Testes API REST de Checkout e Pagamento de produtos Validar pagamento com cartao",
+              "timedOut": false,
+              "duration": 16,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const postPagtoWithCartao = require('../fixture/requisicoes/checkout/postPagtoWithCartao.json');\nconst resposta = await request('http://localhost:3000')\n    .post('/api/checkout')\n    .set('Authorization', `Bearer ${token}`)\n    .send(postPagtoWithCartao);\nexpect(resposta.status).to.equal(200);\nconst respostaEsperada = require('../fixture/respostas/valoresValidosSucessoCartao.json');\nexpect(resposta.body).to.deep.equal(respostaEsperada);",
+              "err": {},
+              "uuid": "c593f268-0ade-4b1a-96d3-edf9e8b86aa2",
+              "parentUUID": "a8ad588e-7185-4c65-90b5-485b706c11a3",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a3e27482-cbdf-42a3-a568-e6e6c61c9fac",
+            "c593f268-0ade-4b1a-96d3-edf9e8b86aa2"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 38,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 10000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}

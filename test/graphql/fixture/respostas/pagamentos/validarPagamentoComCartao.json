@@ -1,0 +1,15 @@
+{
+  "data": {
+    "checkout": {
+      "valorFinal": 204.25,
+      "paymentMethod": "credit_card",
+      "freight": 15,
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 1
+        }
+      ]
+    }
+  }
+}
