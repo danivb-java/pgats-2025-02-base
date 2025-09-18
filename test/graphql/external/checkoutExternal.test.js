@@ -12,7 +12,6 @@ describe('Testes API GRAPHQL de Checkout e Pagamento de produtos', () => {
         token = resposta.body.data.login.token;
     });
 
-
     it('Validar sucesso de pagamento com boleto', async () => {
         const reqBoleto = require('../fixture/requisicoes/checkout/createPagtoWithBoleto.json');
         const respostaSucessoBoleto = await request('http://localhost:4000')
@@ -38,7 +37,6 @@ describe('Testes API GRAPHQL de Checkout e Pagamento de produtos', () => {
         const respostaEsperada = require('../fixture/respostas/pagamentos/validarPagamentoComCartao.json');
         expect(respostaSucessoCartao.body.data.checkout).to.deep.equal(respostaEsperada.data.checkout);
     });
-
 
     const testesDeErrosDeNegocio = require('../fixture/requisicoes/checkout/createCheckoutWithError.json'); 
     testesDeErrosDeNegocio.forEach(teste => {
